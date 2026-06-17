@@ -38,11 +38,11 @@ No REPL:
 
 ## API
 
-### `(make-client)`
-Cria cliente usando `GOOGLE_APPLICATION_CREDENTIALS` do ambiente.
-
 ### `(make-client path)`
-Cria cliente lendo o service account JSON diretamente do caminho informado.
+Cria cliente lendo o project ID e as credenciais do service account JSON informado.
+
+### `(make-client)`
+Cria cliente usando `GOOGLE_APPLICATION_CREDENTIALS` do ambiente (alternativa).
 
 ### `(query client sql)`
 Executa um SQL padrão (não legacy) e retorna `[{:campo "valor"} ...]`.
