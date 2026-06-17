@@ -1,17 +1,17 @@
 (ns poc.bigquery
   "POC: consulta ao BigQuery via interop Java.
 
-  Credenciais: coloque o caminho do seu service account JSON na variável
-  de ambiente GOOGLE_APPLICATION_CREDENTIALS antes de iniciar o REPL,
-  ou passe o caminho diretamente para `make-client`.
+  Credenciais: salve o service account JSON na raiz do projeto
+  (ex: service-account.json) e passe o caminho para `make-client`.
+  O arquivo .gitignore já exclui *.json — a chave não será commitada.
 
   Exemplo de setup:
-    Windows (PowerShell):
-      $env:GOOGLE_APPLICATION_CREDENTIALS = 'C:\\caminho\\para\\service-account.json'
-      clojure -M --repl
-
-    Linux/Mac:
-      GOOGLE_APPLICATION_CREDENTIALS=/caminho/para/service-account.json clojure -M --repl"
+    1. Copie o JSON para este diretório:
+         cp ~/Downloads/bigquery-key.json service-account.json
+    2. Inicie o REPL:
+         clojure -M --repl
+    3. No REPL:
+         (def client (make-client \"service-account.json\"))"
   (:import
    [com.google.cloud.bigquery
     BigQueryOptions
@@ -88,15 +88,11 @@
 
 (comment
 
-  ;; 1. Configure as credenciais antes de iniciar o REPL:
-  ;;    PowerShell: $env:GOOGLE_APPLICATION_CREDENTIALS = "C:\caminho\service-account.json"
-  ;;    Bash:       export GOOGLE_APPLICATION_CREDENTIALS=/caminho/service-account.json
+  ;; 1. Copie o JSON para a raiz deste projeto:
+  ;;    cp ~/Downloads/bigquery-key.json service-account.json
 
-  ;; 2. Crie o cliente (lê GOOGLE_APPLICATION_CREDENTIALS automaticamente)
-  (def client (make-client))
-
-  ;; --- OU passe o caminho explicitamente ---
-  (def client (make-client "C:\\caminho\\para\\service-account.json"))
+  ;; 2. Crie o cliente passando o caminho do JSON
+  (def client (make-client "service-account.json"))
 
   ;; 3. Consulta simples: 10 palavras mais frequentes em Shakespeare
   (query client
