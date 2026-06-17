@@ -1,3 +1,4 @@
 *.json
 .clj-kondo/
 .cpcache/
+.nrepl-port
